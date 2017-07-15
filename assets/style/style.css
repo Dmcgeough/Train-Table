@@ -1,0 +1,11 @@
+body { 
+  background: url(http://www.inetours.com/England/London/images/msc/Victoria-Station-int_1070.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.jumbotron {
+	color:orange;
+	background-color: black;
+}
