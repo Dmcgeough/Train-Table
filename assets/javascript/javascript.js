@@ -29,10 +29,6 @@
       	var firstTrainTime = $("#ftt").val().trim();
       	var Frequency = $("#frequency").val().trim();
 
-      
-     
-		
-
       	// this next bit is to initialise variables needed to handle the time and covert it.
       	//into minutes and to pull the minutes until the next train would arrive using moment.js and a diff moment.
    		var convertedDate = moment(firstTrainTime, "HH:mm");
@@ -44,36 +40,32 @@
       	var nowMins = parseInt(moment().format("mm")) + timeLeft;
 		    
       //this is to prevent a time from reading a minute function as 60 for example 21:60 becomes 22:00 with this bit of code.	
-      if(nowMins === 60) {
-          nowMins = "00";
-          nowHrs ++;
-          nextArrival = nowHrs + ":" + nowMins;
-                } else {
-          nextArrival = nowHrs + ":" + nowMins;
-      }
+      	if(nowMins === 60) {
+          	nowMins = "00";
+          	nowHrs ++;
+         	nextArrival = nowHrs + ":" + nowMins;
+      	} else {
+          	nextArrival = nowHrs + ":" + nowMins;
+      	}
       	//this pushes the needed values to firebase which is important for the next step
    		ref.push({
-        train_name: trainName,
-        destination: Destination,
-        frequency: Frequency,
-        ftt: firstTrainTime,
-        nextArrival: nextArrival,
-        timeLeft: timeLeft
+        	train_name: trainName,
+        	destination: Destination,
+        	frequency: Frequency,
+        	ftt: firstTrainTime,
+        	nextArrival: nextArrival,
+        	timeLeft: timeLeft
      	});
 	});
 
-   //this is a function to create children for the
+   //this is a function saying that when there is a child added to the database
    db.ref().on("child_added", function(snapshot) {
-
-   		
-
-   		
-   		
-
+  		
+   		//append these values to the empty table
    		 $("#emptyTable").append("<tr><td>"+ snapshot.val().train_name
-   		  + "</td> <td>"+ snapshot.val().destination
-   		   + "</td> <td>"+ snapshot.val().frequency
-   		     + "</td><td>"+ snapshot.val().nextArrival
-   		      + "</td><td>"+ snapshot.val().timeLeft + "</td></tr>"); 
+   		 + "</td> <td>"+ snapshot.val().destination
+   		 + "</td> <td>"+ snapshot.val().frequency
+   		 + "</td><td>"+ snapshot.val().nextArrival
+   		 + "</td><td>"+ snapshot.val().timeLeft + "</td></tr>"); 
    		 });
    	});
